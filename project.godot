@@ -1,0 +1,182 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "ScatterDistribution",
+"class": "DistributionGrid",
+"language": "GDScript",
+"path": "res://addons/scatter/src/distributions/distribution_grid.gd"
+}, {
+"base": "ScatterDistribution",
+"class": "DistributionUniform",
+"language": "GDScript",
+"path": "res://addons/scatter/src/distributions/distribution_uniform.gd"
+}, {
+"base": "ScatterDistribution",
+"class": "DistributionUnique",
+"language": "GDScript",
+"path": "res://addons/scatter/src/distributions/distribution_unique.gd"
+}, {
+"base": "ResourceFormatLoader",
+"class": "HTerrainDataLoader",
+"language": "GDScript",
+"path": "res://addons/zylann.hterrain/hterrain_resource_loader.gd"
+}, {
+"base": "ResourceFormatSaver",
+"class": "HTerrainDataSaver",
+"language": "GDScript",
+"path": "res://addons/zylann.hterrain/hterrain_resource_saver.gd"
+}, {
+"base": "Spatial",
+"class": "PolygonPath",
+"language": "GDScript",
+"path": "res://addons/polygon_path/polygon_path.gd"
+}, {
+"base": "Reference",
+"class": "PolygonPathDragInfo",
+"language": "GDScript",
+"path": "res://addons/polygon_path/drag_info.gd"
+}, {
+"base": "ScatterProfile",
+"class": "ProfileJitterSimple",
+"language": "GDScript",
+"path": "res://addons/scatter/src/profiles/profile_jitter_simple.gd"
+}, {
+"base": "ScatterProfile",
+"class": "ProfilePositionSimple",
+"language": "GDScript",
+"path": "res://addons/scatter/src/profiles/profile_position_simple.gd"
+}, {
+"base": "ScatterProfile",
+"class": "ProfileRotationPathAligned",
+"language": "GDScript",
+"path": "res://addons/scatter/src/profiles/profile_rotation_path_aligned.gd"
+}, {
+"base": "ScatterProfile",
+"class": "ProfileRotationSimple",
+"language": "GDScript",
+"path": "res://addons/scatter/src/profiles/profile_rotation_simple.gd"
+}, {
+"base": "ScatterProfile",
+"class": "ProfileScaleNoise",
+"language": "GDScript",
+"path": "res://addons/scatter/src/profiles/profile_scale_noise.gd"
+}, {
+"base": "ScatterProfile",
+"class": "ProfileScaleSimple",
+"language": "GDScript",
+"path": "res://addons/scatter/src/profiles/profile_scale_simple.gd"
+}, {
+"base": "PolygonPath",
+"class": "ScatterBase",
+"language": "GDScript",
+"path": "res://addons/scatter/src/nodes/scatter_base.gd"
+}, {
+"base": "Reference",
+"class": "ScatterCommon",
+"language": "GDScript",
+"path": "res://addons/scatter/src/common.gd"
+}, {
+"base": "ScatterResource",
+"class": "ScatterDistribution",
+"language": "GDScript",
+"path": "res://addons/scatter/src/distributions/distribution_base.gd"
+}, {
+"base": "ScatterBase",
+"class": "ScatterDuplicates",
+"language": "GDScript",
+"path": "res://addons/scatter/src/nodes/scatter_duplicates.gd"
+}, {
+"base": "PolygonPath",
+"class": "ScatterExclude",
+"language": "GDScript",
+"path": "res://addons/scatter/src/nodes/scatter_exclude.gd"
+}, {
+"base": "Spatial",
+"class": "ScatterItem",
+"language": "GDScript",
+"path": "res://addons/scatter/src/nodes/scatter_item.gd"
+}, {
+"base": "ScatterResource",
+"class": "ScatterLogic",
+"language": "GDScript",
+"path": "res://addons/scatter/src/logic/logic_base.gd"
+}, {
+"base": "ScatterLogic",
+"class": "ScatterLogicGeneric",
+"language": "GDScript",
+"path": "res://addons/scatter/src/logic/logic_generic.gd"
+}, {
+"base": "ScatterLogic",
+"class": "ScatterLogicWall",
+"language": "GDScript",
+"path": "res://addons/scatter/src/logic/logic_wall.gd"
+}, {
+"base": "ScatterBase",
+"class": "ScatterMultiMesh",
+"language": "GDScript",
+"path": "res://addons/scatter/src/nodes/scatter_multi_mesh.gd"
+}, {
+"base": "ScatterResource",
+"class": "ScatterProfile",
+"language": "GDScript",
+"path": "res://addons/scatter/src/profiles/profile_base.gd"
+}, {
+"base": "Resource",
+"class": "ScatterResource",
+"language": "GDScript",
+"path": "res://addons/scatter/src/scatter_resource.gd"
+} ]
+_global_script_class_icons={
+"DistributionGrid": "",
+"DistributionUniform": "",
+"DistributionUnique": "",
+"HTerrainDataLoader": "",
+"HTerrainDataSaver": "",
+"PolygonPath": "",
+"PolygonPathDragInfo": "",
+"ProfileJitterSimple": "",
+"ProfilePositionSimple": "",
+"ProfileRotationPathAligned": "",
+"ProfileRotationSimple": "",
+"ProfileScaleNoise": "",
+"ProfileScaleSimple": "",
+"ScatterBase": "",
+"ScatterCommon": "",
+"ScatterDistribution": "",
+"ScatterDuplicates": "",
+"ScatterExclude": "",
+"ScatterItem": "",
+"ScatterLogic": "",
+"ScatterLogicGeneric": "",
+"ScatterLogicWall": "",
+"ScatterMultiMesh": "",
+"ScatterProfile": "",
+"ScatterResource": ""
+}
+
+[application]
+
+config/name="BattleSquared"
+run/main_scene="res://Scene.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+UserData="*res://addons/github-integration/scripts/user_data.gd"
+IconLoaderGithub="*res://addons/github-integration/scripts/IconLoaderGithub.gd"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "github-integration", "polygon_path", "scatter", "zylann.hterrain" )
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
