@@ -1,17 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
+[ext_resource path="res://Sky.tscn" type="PackedScene" id=2]
 
-[sub_resource type="Curve3D" id=1]
+[sub_resource type="Curve3D" id=11]
 _data = {
-"points": PoolVector3Array( -0.33584, 0.469946, 2.71328, 0.33584, -0.469946, -2.71328, -7.96731, 0.293881, -2.95203, -2.09889, -0.896696, -1.04864, 2.09889, 0.896696, 1.04864, 0, 0, -4, -3.94378, 0.273408, 2.40894, 3.94378, -0.273408, -2.40894, 8, 0, -5, 0, 0, 0, 0, 0, 0, 14, 0, -5, 0, 0, 0, 0, 0, 0, 19, 0, -1, 0, 0, 0, 0, 0, 0, 14, 0, 3, 0, 0, 0, 0, 0, 0, 5, 0, 11 ),
-"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0 )
-}
-
-[sub_resource type="Curve3D" id=2]
-_data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 21, 0, 12, 0, 0, 0, 0, 0, 0, 14, 0, 3 ),
-"tilts": PoolRealArray( 0, 0 )
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -26, 3, 0, 0, 0, 0, 0, 0, 0, -11, 3, 0, 0, 0, 0, 0, 0, 0, -5, 3, 0, 0, 0, 0, 0, 0, 0, 5, 3, 0, 0, 0, 0, 0, 0, 0, 11, 3, 0, 0, 0, 0, 0, 0, 0, 13, 3, 0, 0, 0, 1, 0, 0, -1, 14, 3, -1, 0, 0, 0, 0, 0, 0, 14, 3, -6 ),
+"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0 )
 }
 
 [sub_resource type="CapsuleShape" id=3]
@@ -21,18 +16,40 @@ radius = 0.5
 radius = 0.5
 
 [sub_resource type="CubeMesh" id=5]
-size = Vector3( 20, 20, 2 )
+size = Vector3( 20, 2, 10 )
+
+[sub_resource type="PrismMesh" id=6]
+left_to_right = 1.0
+size = Vector3( 6, 2, 2 )
+
+[sub_resource type="PrismMesh" id=7]
+left_to_right = 1.0
+size = Vector3( 6, 2, 2 )
+
+[sub_resource type="CubeMesh" id=8]
+size = Vector3( 4, 2, 2 )
+
+[sub_resource type="CubeMesh" id=9]
+size = Vector3( 6, 2, 4 )
+
+[sub_resource type="CubeMesh" id=10]
+size = Vector3( 2, 2, 4 )
+
+[sub_resource type="CubeMesh" id=13]
+size = Vector3( 2, 8, 1 )
+
+[sub_resource type="CubeMesh" id=12]
+size = Vector3( 1, 8, 2 )
 
 [node name="Spatial" type="Spatial"]
 
-[node name="Path" type="Path" parent="."]
-curve = SubResource( 1 )
+[node name="WorldEnvironment" parent="." instance=ExtResource( 2 )]
 
-[node name="Path2" type="Path" parent="."]
-curve = SubResource( 2 )
+[node name="Path" type="Path" parent="."]
+curve = SubResource( 11 )
 
 [node name="KinematicBody" type="KinematicBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.999984, 0, 0, 0 )
+transform = Transform( -4.37114e-08, 0, 0.999984, 0, 1, 0, -1, 0, -4.37107e-08, 0, 5, 0 )
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
@@ -40,14 +57,58 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0
 shape = SubResource( 3 )
 
 [node name="Camera" type="Camera" parent="KinematicBody"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 0.999998, 0, -1.00002, 0, -4.37121e-08, 3, 0, 0 )
+transform = Transform( -4.37112e-08, 0, 1, 0, 1, 0, -1.00002, 0, -4.37119e-08, 6, 0, 1.31136e-07 )
 
 [node name="MeshInstance" type="MeshInstance" parent="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -0.999982, 0, 1.00002, -4.37114e-08, 0, 0, 0 )
 mesh = SubResource( 4 )
 material/0 = null
 
-[node name="ground" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37115e-08, -0.999984, 0, 1, -4.37107e-08, 6.52887, -2, 2.17627 )
+[node name="Level" type="Node" parent="."]
+
+[node name="CSGMesh" type="CSGMesh" parent="Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -1, 0 )
+use_collision = true
 mesh = SubResource( 5 )
-material/0 = null
+
+[node name="CSGMesh7" type="CSGMesh" parent="Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, -3, 0 )
+use_collision = true
+mesh = SubResource( 5 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, 0 )
+use_collision = true
+mesh = SubResource( 6 )
+
+[node name="CSGMesh5" type="CSGMesh" parent="Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -1, 0 )
+use_collision = true
+mesh = SubResource( 7 )
+
+[node name="CSGMesh3" type="CSGMesh" parent="Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 1, 0 )
+use_collision = true
+mesh = SubResource( 8 )
+
+[node name="CSGMesh6" type="CSGMesh" parent="Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -1, 3 )
+use_collision = true
+mesh = SubResource( 9 )
+
+[node name="CSGMesh4" type="CSGMesh" parent="Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 1, -3 )
+use_collision = true
+mesh = SubResource( 10 )
+
+[node name="Wall" type="CSGMesh" parent="Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 6, -5 )
+visible = false
+use_collision = true
+mesh = SubResource( 13 )
+
+[node name="Wall2" type="CSGMesh" parent="Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 2, 0 )
+visible = false
+use_collision = true
+mesh = SubResource( 12 )
