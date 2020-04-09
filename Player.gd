@@ -18,26 +18,28 @@ func _ready():
 	follow.loop = false
 
 func _process(delta):
-	var dir = Vector3()
-	var facing_direction = self.transform.basis
+	var move_direction = Vector3()
 	
-	if Input.is_key_pressed(KEY_A):
-		dir += facing_direction.z
-	if Input.is_key_pressed(KEY_D):
-		dir += -facing_direction.z
-	if  Input.is_key_pressed(KEY_SPACE) and is_on_floor():
+	follow.offset = follow.get_parent().curve.get_closest_offset(translation)
+	rotation.y = follow.rotation.y - deg2rad(90)
+	
+	translation.x = follow.translation.x
+	translation.z = follow.translation.z
+	
+	move_direction.x = int(Input.is_key_pressed(KEY_A)) - int(Input.is_key_pressed(KEY_D))
+	if Input.is_key_pressed(KEY_SPACE) and is_on_floor():
 		_Velocity.y = JumpForce
-		
-	dir.normalized()
+	
+	move_direction = move_direction.rotated(Vector3.UP, rotation.y)
 	
 	if is_on_floor():
 		# Acceleration / Decceleration
 		var hvelocity = _Velocity
 		hvelocity.y = 0
 		
-		var target = dir*WalkSpeed
+		var target = move_direction * WalkSpeed
 		var accel
-		if (dir.dot(hvelocity) > 0):
+		if (move_direction.dot(hvelocity) > 0):
 			accel = ACCEL
 		else:
 			accel = DEACCEL
@@ -51,18 +53,10 @@ func _process(delta):
 		#Drag
 		_Velocity -= (_Velocity*0.02)*Vector3(1,0,1)
 	
-	# Add direction
-	_Velocity += dir * WalkSpeed * 5 * delta
-	
 	#Gravity
 	_Velocity.y += GRAVITY * delta * 4 #need fixing
 	
-	translation.x = follow.translation.x
-	translation.z = follow.translation.z
+	# Add direction
+	_Velocity += move_direction * WalkSpeed * 5 * delta
 	
-	
-	_Velocity = move_and_slide(_Velocity, Vector3(0, 1, 0), true, 4, deg2rad(45), false)
-	
-	follow.offset = follow.get_parent().curve.get_closest_offset(translation)
-	rotation.y = follow.rotation.y
-
+	_Velocity = move_and_slide(_Velocity, Vector3(0, 1, 0), true, 1, deg2rad(60), false)
