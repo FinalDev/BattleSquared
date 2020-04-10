@@ -26,8 +26,9 @@ func _process(delta):
 	translation.x = follow.translation.x
 	translation.z = follow.translation.z
 	
-	move_direction.x = int(Input.is_key_pressed(KEY_A)) - int(Input.is_key_pressed(KEY_D))
-	if Input.is_key_pressed(KEY_SPACE) and is_on_floor():
+	#move_direction.x = int(Input.is_key_pressed(KEY_A)) - int(Input.is_key_pressed(KEY_D))
+	move_direction.x = int(Input.is_action_pressed("movement_left")) - int(Input.is_action_pressed("movement_right"))
+	if Input.is_action_pressed("movement_jump") and is_on_floor():
 		_Velocity.y = JumpForce
 	
 	move_direction = move_direction.rotated(Vector3.UP, rotation.y)
