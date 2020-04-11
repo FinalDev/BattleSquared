@@ -26,7 +26,6 @@ func _process(delta):
 	translation.x = follow.translation.x
 	translation.z = follow.translation.z
 	
-	#move_direction.x = int(Input.is_key_pressed(KEY_A)) - int(Input.is_key_pressed(KEY_D))
 	move_direction.x = int(Input.is_action_pressed("movement_left")) - int(Input.is_action_pressed("movement_right"))
 	if Input.is_action_pressed("movement_jump") and is_on_floor():
 		_Velocity.y = JumpForce
@@ -60,4 +59,4 @@ func _process(delta):
 	# Add direction
 	_Velocity += move_direction * WalkSpeed * 5 * delta
 	
-	_Velocity = move_and_slide(_Velocity, Vector3(0, 1, 0), true, 1, deg2rad(60), false)
+	_Velocity = move_and_slide(_Velocity, Vector3(0, 1, 0), true, 72, deg2rad(72), false) #need slop fix
