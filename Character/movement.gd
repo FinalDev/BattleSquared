@@ -10,6 +10,7 @@ const 		ACCEL:float	 				= 8.0
 const 		DEACCEL:float				= 16.0
 
 var			_Velocity:Vector3			= Vector3()
+var			move_direction:Vector3 		= Vector3()
 
 func _ready():
 	$"../Path".add_child(follow)
@@ -18,17 +19,13 @@ func _ready():
 	follow.loop = false
 
 func _process(delta):
-	var move_direction = Vector3()
+#	var move_direction = Vector3()
 	
 	follow.offset = follow.get_parent().curve.get_closest_offset(translation)
 	rotation.y = follow.rotation.y - deg2rad(90)
 	
 	translation.x = follow.translation.x
 	translation.z = follow.translation.z
-	
-	move_direction.x = int(Input.is_action_pressed("movement_left")) - int(Input.is_action_pressed("movement_right"))
-	if Input.is_action_pressed("movement_jump") and is_on_floor():
-		_Velocity.y = JumpForce
 	
 	move_direction = move_direction.rotated(Vector3.UP, rotation.y)
 	
