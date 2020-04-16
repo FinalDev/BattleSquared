@@ -19,7 +19,6 @@ func _ready():
 	follow.loop = false
 
 func _process(delta):
-	
 	follow.offset = follow.get_parent().curve.get_closest_offset(translation)
 	rotation.y = follow.rotation.y - deg2rad(90)
 	
