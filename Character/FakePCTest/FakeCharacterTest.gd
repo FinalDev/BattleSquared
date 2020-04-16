@@ -4,6 +4,8 @@ func _ready():
 	pass
 
 func _process(_delta):
+	move_direction = Vector3()
+	
 	var dir:int = 0
 	if Input.is_key_pressed(KEY_RIGHT):
 		dir -= 1
