@@ -1,5 +1,6 @@
 extends KinematicBody
 
+onready var currentPath = "Main"
 var follow = PathFollow.new()
 
 export var	WalkSpeed:float 			= 9.0
@@ -13,10 +14,16 @@ var			_Velocity:Vector3			= Vector3()
 var			move_direction:Vector3 		= Vector3()
 
 func _ready():
-	$"../Path".add_child(follow)
+	get_node("../Level/Paths/%s" % currentPath).add_child(follow) # This will need to be more modular based on where you get in/out of the level
 	follow.offset = 0
 	follow.rotation_mode = PathFollow.ROTATION_ORIENTED
 	follow.loop = false
+
+func change_path(path):
+	print("Path change from %s to %s" % [currentPath, path])
+	get_node("../Level/Paths/%s" % currentPath).remove_child(follow)
+	get_node("../Level/Paths/%s" % path).add_child(follow)
+	currentPath = path
 
 func _process(delta):
 	
