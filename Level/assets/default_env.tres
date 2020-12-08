@@ -10,4 +10,5 @@ background_mode = 2
 background_sky = SubResource( 1 )
 tonemap_mode = 2
 auto_exposure_enabled = true
+auto_exposure_speed = 64.0
 ssao_enabled = true

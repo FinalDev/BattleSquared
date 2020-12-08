@@ -9,3 +9,6 @@ func _process(delta):
 	move_direction.x = int(Input.is_action_pressed("movement_left")) - int(Input.is_action_pressed("movement_right"))
 	if Input.is_action_pressed("movement_jump") and is_on_floor():
 		_Velocity.y = JumpForce
+
+#func _input(event):
+#
