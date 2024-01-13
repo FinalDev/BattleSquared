@@ -1,7 +1,5 @@
-res://addons/file-editor/
-icons.pngs/
-screenshots/
-user/
+*.git
+*.godot
 *.import
-fonts/
+
 
