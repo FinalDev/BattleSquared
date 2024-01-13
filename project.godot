@@ -6,213 +6,74 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
-
-_global_script_classes=[ {
-"base": "ScatterDistribution",
-"class": "DistributionGrid",
-"language": "GDScript",
-"path": "res://addons/scatter/src/distributions/distribution_grid.gd"
-}, {
-"base": "ScatterDistribution",
-"class": "DistributionUniform",
-"language": "GDScript",
-"path": "res://addons/scatter/src/distributions/distribution_uniform.gd"
-}, {
-"base": "ScatterDistribution",
-"class": "DistributionUnique",
-"language": "GDScript",
-"path": "res://addons/scatter/src/distributions/distribution_unique.gd"
-}, {
-"base": "ResourceFormatLoader",
-"class": "HTerrainDataLoader",
-"language": "GDScript",
-"path": "res://addons/zylann.hterrain/hterrain_resource_loader.gd"
-}, {
-"base": "ResourceFormatSaver",
-"class": "HTerrainDataSaver",
-"language": "GDScript",
-"path": "res://addons/zylann.hterrain/hterrain_resource_saver.gd"
-}, {
-"base": "Spatial",
-"class": "PolygonPath",
-"language": "GDScript",
-"path": "res://addons/polygon_path/polygon_path.gd"
-}, {
-"base": "Reference",
-"class": "PolygonPathDragInfo",
-"language": "GDScript",
-"path": "res://addons/polygon_path/drag_info.gd"
-}, {
-"base": "ScatterProfile",
-"class": "ProfileJitterSimple",
-"language": "GDScript",
-"path": "res://addons/scatter/src/profiles/profile_jitter_simple.gd"
-}, {
-"base": "ScatterProfile",
-"class": "ProfilePositionSimple",
-"language": "GDScript",
-"path": "res://addons/scatter/src/profiles/profile_position_simple.gd"
-}, {
-"base": "ScatterProfile",
-"class": "ProfileRotationPathAligned",
-"language": "GDScript",
-"path": "res://addons/scatter/src/profiles/profile_rotation_path_aligned.gd"
-}, {
-"base": "ScatterProfile",
-"class": "ProfileRotationSimple",
-"language": "GDScript",
-"path": "res://addons/scatter/src/profiles/profile_rotation_simple.gd"
-}, {
-"base": "ScatterProfile",
-"class": "ProfileScaleNoise",
-"language": "GDScript",
-"path": "res://addons/scatter/src/profiles/profile_scale_noise.gd"
-}, {
-"base": "ScatterProfile",
-"class": "ProfileScaleSimple",
-"language": "GDScript",
-"path": "res://addons/scatter/src/profiles/profile_scale_simple.gd"
-}, {
-"base": "PolygonPath",
-"class": "ScatterBase",
-"language": "GDScript",
-"path": "res://addons/scatter/src/nodes/scatter_base.gd"
-}, {
-"base": "Reference",
-"class": "ScatterCommon",
-"language": "GDScript",
-"path": "res://addons/scatter/src/common.gd"
-}, {
-"base": "ScatterResource",
-"class": "ScatterDistribution",
-"language": "GDScript",
-"path": "res://addons/scatter/src/distributions/distribution_base.gd"
-}, {
-"base": "ScatterBase",
-"class": "ScatterDuplicates",
-"language": "GDScript",
-"path": "res://addons/scatter/src/nodes/scatter_duplicates.gd"
-}, {
-"base": "PolygonPath",
-"class": "ScatterExclude",
-"language": "GDScript",
-"path": "res://addons/scatter/src/nodes/scatter_exclude.gd"
-}, {
-"base": "Spatial",
-"class": "ScatterItem",
-"language": "GDScript",
-"path": "res://addons/scatter/src/nodes/scatter_item.gd"
-}, {
-"base": "ScatterResource",
-"class": "ScatterLogic",
-"language": "GDScript",
-"path": "res://addons/scatter/src/logic/logic_base.gd"
-}, {
-"base": "ScatterLogic",
-"class": "ScatterLogicGeneric",
-"language": "GDScript",
-"path": "res://addons/scatter/src/logic/logic_generic.gd"
-}, {
-"base": "ScatterLogic",
-"class": "ScatterLogicWall",
-"language": "GDScript",
-"path": "res://addons/scatter/src/logic/logic_wall.gd"
-}, {
-"base": "ScatterBase",
-"class": "ScatterMultiMesh",
-"language": "GDScript",
-"path": "res://addons/scatter/src/nodes/scatter_multi_mesh.gd"
-}, {
-"base": "ScatterResource",
-"class": "ScatterProfile",
-"language": "GDScript",
-"path": "res://addons/scatter/src/profiles/profile_base.gd"
-}, {
-"base": "Resource",
-"class": "ScatterResource",
-"language": "GDScript",
-"path": "res://addons/scatter/src/scatter_resource.gd"
-} ]
-_global_script_class_icons={
-"DistributionGrid": "",
-"DistributionUniform": "",
-"DistributionUnique": "",
-"HTerrainDataLoader": "",
-"HTerrainDataSaver": "",
-"PolygonPath": "",
-"PolygonPathDragInfo": "",
-"ProfileJitterSimple": "",
-"ProfilePositionSimple": "",
-"ProfileRotationPathAligned": "",
-"ProfileRotationSimple": "",
-"ProfileScaleNoise": "",
-"ProfileScaleSimple": "",
-"ScatterBase": "",
-"ScatterCommon": "",
-"ScatterDistribution": "",
-"ScatterDuplicates": "",
-"ScatterExclude": "",
-"ScatterItem": "",
-"ScatterLogic": "",
-"ScatterLogicGeneric": "",
-"ScatterLogicWall": "",
-"ScatterMultiMesh": "",
-"ScatterProfile": "",
-"ScatterResource": ""
-}
+config_version=5
 
 [application]
 
 config/name="BattleSquared"
-run/main_scene="res://masterScene.tscn"
+run/main_scene="res://Scene/masterScene.tscn"
+config/features=PackedStringArray("4.2")
 config/icon="res://icon.png"
 
-[editor_plugins]
+[autoload]
 
-enabled=PoolStringArray( "polygon_path", "scatter", "zylann.hterrain" )
+Global="*res://Scripts/global.gd"
+
+[filesystem]
+
+import/blender/enabled=false
 
 [input]
 
 ui_end={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777230,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194318,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 movement_left={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"unicode":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":65,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
 , Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":0,"axis_value":-1.0,"script":null)
- ]
+]
 }
 movement_right={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"unicode":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":68,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
 , Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":0,"axis_value":1.0,"script":null)
- ]
+]
 }
 movement_jump={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"unicode":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":87,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
 , Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":1,"axis_value":-1.0,"script":null)
- ]
+]
 }
 interaction={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":70,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":70,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 evade={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":32,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
 }
 block={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777237,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194325,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
+}
+roll={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194325,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
+}
+interact={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":70,"key_label":0,"unicode":102,"echo":false,"script":null)
+]
 }
 
-[rendering]
+[physics]
 
-environment/default_environment="res://Level/assets/default_env.tres"
+3d/physics_engine="JoltPhysics3D"

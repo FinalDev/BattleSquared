@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://clt171msyimbq"]
+
+[ext_resource type="Script" path="res://Scripts/World.gd" id="1_eb50y"]
+[ext_resource type="PackedScene" uid="uid://corfbkreyc116" path="res://Assets/Environment.tscn" id="1_frf6v"]
+[ext_resource type="PackedScene" uid="uid://dmw5ap0a4brb3" path="res://Scene/TestLevel.tscn" id="2_84lho"]
+[ext_resource type="PackedScene" uid="uid://bh4nv838llanr" path="res://Assets/Player.tscn" id="3_h7khj"]
+
+[node name="World" type="Node"]
+script = ExtResource("1_eb50y")
+
+[node name="Environment" parent="." instance=ExtResource("1_frf6v")]
+
+[node name="Level" parent="." instance=ExtResource("2_84lho")]
+
+[node name="Character" parent="." instance=ExtResource("3_h7khj")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.5, 0)
