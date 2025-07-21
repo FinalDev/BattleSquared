@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://cus3br2a2f8kq"]
+
+[ext_resource type="Script" uid="uid://dos08uk0eexdh" path="res://Scripts/path_toggle.gd" id="1_gmlr3"]
+
+[sub_resource type="BoxShape3D" id="1"]
+size = Vector3(2, 4, 2)
+
+[node name="Path Toggle" type="Area3D"]
+collision_layer = 16
+collision_mask = 16
+monitorable = false
+script = ExtResource("1_gmlr3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("1")
+
+[node name="Label" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+billboard = 2
+alpha_cut = 2
+text = "[F]"
+font_size = 128
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://d2k2met05u78b"]
 
-[ext_resource type="Script" path="res://Scripts/path_changer.gd" id="1_yhgro"]
+[ext_resource type="Script" uid="uid://cxcdll2b83scp" path="res://Scripts/path_changer.gd" id="1_yhgro"]
 
 [sub_resource type="BoxShape3D" id="1"]
 size = Vector3(2, 4, 2)
@@ -14,4 +14,4 @@ script = ExtResource("1_yhgro")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("1")
 
-[connection signal="body_entered" from="." to="." method="_on_Area_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

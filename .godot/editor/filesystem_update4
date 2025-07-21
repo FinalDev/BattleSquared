@@ -1,6 +1,5 @@
-res://Scene/TestLevel.tscn
 res://Scene/masterScene.tscn
-res://Scene/Sewer.tscn
-res://Assets/level_changer.tscn
-res://Scripts/level_changer.gd
-res://Scripts/World.gd
+res://Assets/FantasyKingdom/FantasyKingdom.tres
+res://outline.gdshader
+res://Assets/FantasyKingdom/FantasyKingdomImport.gd
+res://Scene/Knights.tscn

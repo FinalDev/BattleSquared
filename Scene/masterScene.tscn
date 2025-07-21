@@ -1,16 +1,86 @@
-[gd_scene load_steps=5 format=3 uid="uid://clt171msyimbq"]
+[gd_scene load_steps=14 format=3 uid="uid://clt171msyimbq"]
 
-[ext_resource type="Script" path="res://Scripts/World.gd" id="1_eb50y"]
-[ext_resource type="PackedScene" uid="uid://corfbkreyc116" path="res://Assets/Environment.tscn" id="1_frf6v"]
-[ext_resource type="PackedScene" uid="uid://dmw5ap0a4brb3" path="res://Scene/TestLevel.tscn" id="2_84lho"]
+[ext_resource type="Script" uid="uid://de0eppiwj3ar4" path="res://Scripts/World.gd" id="1_eb50y"]
 [ext_resource type="PackedScene" uid="uid://bh4nv838llanr" path="res://Assets/Player.tscn" id="3_h7khj"]
+[ext_resource type="PackedScene" uid="uid://wd3vbngm4c17" path="res://Scene/Knights.tscn" id="4_8o3qg"]
+[ext_resource type="Shader" uid="uid://cws7bqscpuh44" path="res://outline.gdshader" id="5_gvv7e"]
+[ext_resource type="Script" uid="uid://8sfpwbrmdiud" path="res://Scripts/debug_values.gd" id="6_0jk6h"]
+[ext_resource type="Texture2D" uid="uid://wnja7t1k6chh" path="res://Assets/Texture/daytime.hdr" id="6_cbsd1"]
+[ext_resource type="Script" uid="uid://b2u2rv74s8ka2" path="res://Scene/SubViewportContainer.gd" id="7_l2qyn"]
+[ext_resource type="Script" uid="uid://bpyda0h5yms2c" path="res://Scene/DirectionalLight3D.gd" id="7_v4288"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_p3ebx"]
+panorama = ExtResource("6_cbsd1")
+
+[sub_resource type="Sky" id="Sky_shswu"]
+sky_material = SubResource("PanoramaSkyMaterial_p3ebx")
+
+[sub_resource type="Environment" id="Environment_2r1q4"]
+background_mode = 2
+sky = SubResource("Sky_shswu")
+reflected_light_source = 2
+tonemap_mode = 3
+tonemap_exposure = 0.8
+glow_enabled = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4vhg7"]
+render_priority = 0
+shader = ExtResource("5_gvv7e")
+shader_parameter/depth_threshold = 0.05
+shader_parameter/reverse_depth_threshold = 0.25
+shader_parameter/normal_threshold = 0.6
+shader_parameter/darken_amount = 0.3
+shader_parameter/lighten_amount = 1.5
+shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
+shader_parameter/light_direction = Vector3(-0.25, -0.866025, 0.433013)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ot4w3"]
+material = SubResource("ShaderMaterial_4vhg7")
+flip_faces = true
+size = Vector2(2, 2)
 
 [node name="World" type="Node"]
 script = ExtResource("1_eb50y")
 
-[node name="Environment" parent="." instance=ExtResource("1_frf6v")]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2r1q4")
 
-[node name="Level" parent="." instance=ExtResource("2_84lho")]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+script = ExtResource("7_v4288")
 
-[node name="Character" parent="." instance=ExtResource("3_h7khj")]
+[node name="Level" parent="." instance=ExtResource("4_8o3qg")]
+unique_name_in_owner = true
+
+[node name="DebugValues" type="RichTextLabel" parent="."]
+offset_right = 416.0
+offset_bottom = 295.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "text"
+fit_content = true
+script = ExtResource("6_0jk6h")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+z_index = -10
+texture_filter = 1
+stretch = true
+script = ExtResource("7_l2qyn")
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(2, 2)
+render_target_update_mode = 4
+
+[node name="PostProcessing" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+visible = false
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_ot4w3")
+skeleton = NodePath("")
+
+[node name="Player" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_h7khj")]
+unique_name_in_owner = true
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.5, 0)

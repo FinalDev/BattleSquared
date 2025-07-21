@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://bpsrdra7jcmw1"]
+
+[ext_resource type="Texture2D" uid="uid://dehkp4imxisdn" path="res://Assets/FantasyKingdom/PolygonFantasyKingdom_Texture_01_A.png" id="1_ge3sj"]
+[ext_resource type="Texture2D" uid="uid://bvoar2ch17ky0" path="res://Assets/FantasyKingdom/PolygonFantasyKingdom_Texture_Emmisive.png" id="2_udfsg"]
+[ext_resource type="Texture2D" uid="uid://cc1n12fmlauc7" path="res://Assets/FantasyKingdom/PolygonFantasyKingdom_Texture_Normal_01.png" id="3_3lycp"]
+
+[resource]
+albedo_texture = ExtResource("1_ge3sj")
+emission_enabled = true
+emission_texture = ExtResource("2_udfsg")
+normal_enabled = true
+normal_texture = ExtResource("3_3lycp")

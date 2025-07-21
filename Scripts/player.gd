@@ -2,8 +2,9 @@ class_name Player extends CharacterBody3D
 
 @onready var currentPath = null
 var follow: PathFollow3D
-
 @onready var interpolated: Node3D = $Interpolated
+@onready var level_path = get_path_to(%Level)
+@onready var camera_3d = $Interpolated/Camera3D
 
 @onready var ap: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite3D = $Interpolated/Sprite3D
@@ -12,6 +13,8 @@ var follow: PathFollow3D
 @export var	WALKSPEED:float 		= 8.0
 @export var	AIRSPEED:float 			= 6.0
 @export var	JUMPFORCE:float 		= 15.0
+@export var ROLL_COOLDOWN:float		= 2.0 #sec
+var roll_last_time:float			= -ROLL_COOLDOWN
 
 var 		GRAVITY:float			= ProjectSettings.get_setting("physics/3d/default_gravity")
 var 		ACCEL:float	 			= 0.1
@@ -69,10 +72,10 @@ func change_path(path):
 		print("Path3D change from %s to %s" % [currentPath, path])
 
 		if currentPath != null:
-			get_node("../Level/Paths/%s" % currentPath).remove_child(follow)
-		get_node("../Level/Paths/%s" % path).add_child(follow)
+			get_node("%s/Paths/%s" % [level_path, currentPath]).remove_child(follow)
+		get_node("%s/Paths/%s" % [level_path, path]).add_child(follow)
 		
-		get_node("../Level/Paths/%s" % path).get_curve().bake_interval=0.1
+		get_node("%s/Paths/%s" % [level_path, path]).get_curve().bake_interval=0.1
 		
 		currentPath = path
 		Global.debug_values.add_debug_value("Path", "%s" % currentPath)
@@ -142,22 +145,14 @@ func _on_walking_state_enter():
 
 func _on_walking_state_physics_update(_delta):
 	get_direction()
-	if direction == 0:
-		state_machine.change_state("idle")
-		return
-	
-	var h_velocity: float = Vector3(velocity.x, 0.0, velocity.z).dot(transform.basis.z)
-	#Global.debug_values.add_debug_value("h_velocity", "%.3f" % h_velocity)
-	if direction != sign(h_velocity):
-		ap.play("turn_around", -1, 2)
-		sprite.flip_h = -direction == -1
-		sprite.offset.x = 4*-direction
-	else:
-		ap.play("run")
 	
 	if Input.is_action_pressed("roll") and is_on_floor():
-		state_machine.change_state("roll")
-		return
+		var curr_time = Time.get_ticks_msec()
+		var time_since = (curr_time - roll_last_time) / 1000
+		if time_since > ROLL_COOLDOWN:
+			roll_last_time = curr_time
+			state_machine.change_state("roll")
+			return
 	
 	if Input.is_action_pressed("movement_jump") and is_on_floor():
 		jump()
@@ -168,6 +163,17 @@ func _on_walking_state_physics_update(_delta):
 		return
 	
 	move()
+	
+	var h_velocity: float = Vector3(velocity.x, 0.0, velocity.z).dot(transform.basis.z)
+	Global.debug_values.add_debug_value("h_velocity", "%.3f" % h_velocity)
+	if h_velocity == 0:
+		state_machine.change_state("idle")
+		return
+	
+	if direction == 0 and h_velocity != 0:#sign(h_velocity):
+		ap.play("turn_around", -1, 2)
+	else:
+		ap.play("run")
 
 func _on_midair_state_enter():
 	current_speed = AIRSPEED
@@ -198,7 +204,7 @@ func _on_roll_state_physics_update(_delta):
 
 func _on_roll_finish(_animation_name):
 	if is_on_floor():
-		state_machine.change_state("idle")
+		state_machine.change_state("walking")
 	else:
 		state_machine.change_state("midair")
 	ap.animation_finished.disconnect(_on_roll_finish)

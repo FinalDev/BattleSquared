@@ -1,6 +1,7 @@
-[gd_scene load_steps=28 format=3 uid="uid://dmw5ap0a4brb3"]
+[gd_scene load_steps=29 format=3 uid="uid://dmw5ap0a4brb3"]
 
-[ext_resource type="Script" path="res://Scripts/path_changer.gd" id="1"]
+[ext_resource type="Script" uid="uid://cxcdll2b83scp" path="res://Scripts/path_changer.gd" id="1"]
+[ext_resource type="Script" uid="uid://bpwokbtj4u6gb" path="res://Scripts/debug_draw.gd" id="1_a821x"]
 [ext_resource type="Material" uid="uid://bunu8yk5qyeop" path="res://Assets/Material/Prototype_Red.tres" id="2"]
 [ext_resource type="Material" uid="uid://dy3fvgwx2hje6" path="res://Assets/Material/Prototype_Orange.tres" id="3"]
 [ext_resource type="Material" uid="uid://cdo5k3ouv0s8r" path="res://Assets/Material/Prototype_Green.tres" id="4"]
@@ -69,7 +70,7 @@ point_count = 7
 
 [sub_resource type="Curve3D" id="18"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -23, -1, 20, 0, 0, 1, 0, 0, -1, -23, -1, 6, -1, 0, 0, 1, 0, 0, -21, -1, 4, 0, 0, 0, 0, 0, 0, -18, -1, 4),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -23, -1, 20, 0, 0, 1, 0, 0, -1, -23, -1, 6, -1, 0, 0, 1, 0, 0, -21, -1, 4, 0, 0, 0, 0, 0, 0, -17, -1, 4),
 "tilts": PackedFloat32Array(0, 0, 0, 0)
 }
 point_count = 4
@@ -81,9 +82,10 @@ size = Vector3(2, 4, 2)
 size = Vector3(4, 8, 2)
 
 [sub_resource type="BoxShape3D" id="20"]
-size = Vector3(2, 8, 2)
+size = Vector3(2, 5.5, 2)
 
 [node name="Level" type="Node"]
+script = ExtResource("1_a821x")
 
 [node name="Geometry" type="Node" parent="."]
 
@@ -210,7 +212,7 @@ size = Vector3(1, 8, 2)
 material = ExtResource("2")
 
 [node name="CSGBox5" type="CSGBox3D" parent="Geometry"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 4.75, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 3.75, 4)
 use_collision = true
 size = Vector3(2, 0.5, 2)
 material = ExtResource("7")
@@ -314,7 +316,7 @@ curve = SubResource("16")
 curve = SubResource("18")
 
 [node name="Main > Elevation" type="Area3D" parent="Paths"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.21011, 5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 5, 0)
 collision_layer = 16
 collision_mask = 16
 monitorable = false
@@ -356,16 +358,16 @@ script = ExtResource("1")
 targetPath = NodePath("../Elevation")
 
 [node name="CollisionShape" type="CollisionShape3D" parent="Paths/Alley > Elevation"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.75, 0)
 shape = SubResource("20")
 
-[node name="Sewer" parent="." instance=ExtResource("9_nfg47")]
+[node name="ToSewer" parent="." instance=ExtResource("9_nfg47")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, -2, -1)
 level_path = "res://Scene/Sewer.tscn"
-target_portal = "Main"
+target_portal = "ToTest"
 portal_path = NodePath("../Paths/Main")
 
-[connection signal="body_entered" from="Paths/Main > Elevation" to="Paths/Main > Elevation" method="_on_Area_body_entered"]
-[connection signal="body_entered" from="Paths/Elevation > Main" to="Paths/Elevation > Main" method="_on_Area_body_entered"]
-[connection signal="body_entered" from="Paths/Elevation > Alley" to="Paths/Elevation > Alley" method="_on_Area_body_entered"]
-[connection signal="body_entered" from="Paths/Alley > Elevation" to="Paths/Alley > Elevation" method="_on_Area_body_entered"]
+[connection signal="body_entered" from="Paths/Main > Elevation" to="Paths/Main > Elevation" method="_on_body_entered"]
+[connection signal="body_entered" from="Paths/Elevation > Main" to="Paths/Elevation > Main" method="_on_body_entered"]
+[connection signal="body_entered" from="Paths/Elevation > Alley" to="Paths/Elevation > Alley" method="_on_body_entered"]
+[connection signal="body_entered" from="Paths/Alley > Elevation" to="Paths/Alley > Elevation" method="_on_body_entered"]

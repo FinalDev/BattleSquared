@@ -2,8 +2,10 @@ extends RichTextLabel
 
 var debug_values: Dictionary = {}
 
-func _ready():
-	Global.debug_values = self
+func _input(event):
+	if event is InputEventKey:
+		if event.pressed and event.keycode == KEY_F1:
+			visible = !visible
 
 func add_debug_value(key, value):
 	if not key in debug_values:

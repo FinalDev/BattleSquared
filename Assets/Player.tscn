@@ -1,16 +1,15 @@
-[gd_scene load_steps=23 format=3 uid="uid://bh4nv838llanr"]
+[gd_scene load_steps=20 format=3 uid="uid://bh4nv838llanr"]
 
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_yv6fs"]
-[ext_resource type="Script" path="res://Scripts/interpolated.gd" id="2_q3wg5"]
+[ext_resource type="Script" uid="uid://b5g0hgc82p04g" path="res://Scripts/player.gd" id="1_yv6fs"]
+[ext_resource type="Script" uid="uid://vnuibbm77q5i" path="res://Scripts/interpolated.gd" id="2_q3wg5"]
 [ext_resource type="Texture2D" uid="uid://b7igjfu0as67q" path="res://Assets/Player/_Idle.png" id="4_5kfwr"]
 [ext_resource type="Texture2D" uid="uid://cut247c7p2juv" path="res://Assets/Player/_Run.png" id="5_6pn4q"]
 [ext_resource type="Texture2D" uid="uid://fbexrtw81ees" path="res://Assets/Player/_Jump.png" id="6_h2f34"]
 [ext_resource type="Texture2D" uid="uid://ctcuj1skfiumy" path="res://Assets/Player/_TurnAround.png" id="6_yeg34"]
 [ext_resource type="Texture2D" uid="uid://bhtt2tsmqvpn7" path="res://Assets/Player/_Fall.png" id="7_3sld2"]
 [ext_resource type="Texture2D" uid="uid://bgm0w7ep0uoi1" path="res://Assets/Player/_Roll.png" id="7_petvi"]
-[ext_resource type="Script" path="res://Scripts/state_manager.gd" id="8_8rxta"]
-[ext_resource type="Script" path="res://Scripts/debug_values.gd" id="9_o5ij5"]
-[ext_resource type="Script" path="res://Scripts/state.gd" id="9_w08kt"]
+[ext_resource type="Script" uid="uid://cuwfmsy5rgwwn" path="res://Scripts/state_manager.gd" id="8_8rxta"]
+[ext_resource type="Script" uid="uid://wtef05rhn1q4" path="res://Scripts/state.gd" id="9_w08kt"]
 
 [sub_resource type="Animation" id="Animation_xoify"]
 length = 0.001
@@ -378,30 +377,25 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uig8k"]
 _data = {
-"RESET": SubResource("Animation_xoify"),
-"fall": SubResource("Animation_grl80"),
-"idle": SubResource("Animation_td8fm"),
-"jump": SubResource("Animation_lg4vd"),
-"roll": SubResource("Animation_3hhha"),
-"run": SubResource("Animation_wnhi6"),
-"turn_around": SubResource("Animation_s3a0g")
+&"RESET": SubResource("Animation_xoify"),
+&"fall": SubResource("Animation_grl80"),
+&"idle": SubResource("Animation_td8fm"),
+&"jump": SubResource("Animation_lg4vd"),
+&"roll": SubResource("Animation_3hhha"),
+&"run": SubResource("Animation_wnhi6"),
+&"turn_around": SubResource("Animation_s3a0g")
 }
 
 [sub_resource type="CapsuleShape3D" id="1"]
 
-[sub_resource type="CapsuleMesh" id="2"]
-
-[sub_resource type="BoxMesh" id="3"]
-size = Vector3(0.25, 0.25, 0.25)
-
-[node name="Character" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D"]
 collision_layer = 17
 collision_mask = 17
 script = ExtResource("1_yv6fs")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_uig8k")
+&"": SubResource("AnimationLibrary_uig8k")
 }
 autoplay = "idle"
 
@@ -414,37 +408,17 @@ script = ExtResource("2_q3wg5")
 
 [node name="Sprite3D" type="Sprite3D" parent="Interpolated"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.97848, 0)
+layers = 2
 offset = Vector2(4, 0)
 pixel_size = 0.05
 billboard = 2
-shaded = true
-alpha_cut = 2
-alpha_antialiasing_mode = 2
+alpha_cut = 1
 texture_filter = 0
 texture = ExtResource("4_5kfwr")
 hframes = 10
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Interpolated"]
-transform = Transform3D(1, 0, 0, 0, 1.00002, 0, 0, 0, 0.999982, 0, 1, 0)
-visible = false
-mesh = SubResource("2")
-
-[node name="MeshInstance2" type="MeshInstance3D" parent="Interpolated"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.5, 0)
-visible = false
-mesh = SubResource("3")
-
 [node name="Camera3D" type="Camera3D" parent="Interpolated"]
-transform = Transform3D(1.3114e-07, 0, -1, 0, 1, 0, 1, 0, 1.3114e-07, -6, 1, 0)
-
-[node name="DebugValues" type="RichTextLabel" parent="Interpolated/Camera3D"]
-offset_right = 416.0
-offset_bottom = 295.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-bbcode_enabled = true
-fit_content = true
-script = ExtResource("9_o5ij5")
+transform = Transform3D(1.26672e-07, 0.258819, -0.965926, -3.39415e-08, 0.965926, 0.258819, 1, 0, 1.3114e-07, -6, 2, 0)
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("8_8rxta")

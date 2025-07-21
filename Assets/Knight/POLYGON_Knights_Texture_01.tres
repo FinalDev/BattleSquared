@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bj16rlci45v34"]
+
+[ext_resource type="Texture2D" uid="uid://br8n237l45a1n" path="res://Assets/Knight/POLYGON_Knights_Texture_01.png" id="1_iug0b"]
+
+[resource]
+albedo_texture = ExtResource("1_iug0b")
