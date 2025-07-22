@@ -1,5 +1,9 @@
 res://Scene/masterScene.tscn
 res://Assets/FantasyKingdom/FantasyKingdom.tres
 res://outline.gdshader
-res://Assets/FantasyKingdom/FantasyKingdomImport.gd
-res://Scene/Knights.tscn
+res://edge_detection.gdshader
+res://Scene/DirectionalLight3D.gd
+res://Scripts/debug_values.gd
+res://Assets/Player.tscn
+res://Scripts/global.gd
+res://Scripts/interpolated.gd

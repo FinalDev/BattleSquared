@@ -6,6 +6,7 @@ func _input(event):
 	if event is InputEventKey:
 		if event.pressed and event.keycode == KEY_F1:
 			visible = !visible
+			print("Debug Text is %s" % visible)
 
 func add_debug_value(key, value):
 	if not key in debug_values:

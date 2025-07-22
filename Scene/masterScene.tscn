@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://de0eppiwj3ar4" path="res://Scripts/World.gd" id="1_eb50y"]
 [ext_resource type="PackedScene" uid="uid://bh4nv838llanr" path="res://Assets/Player.tscn" id="3_h7khj"]
 [ext_resource type="PackedScene" uid="uid://wd3vbngm4c17" path="res://Scene/Knights.tscn" id="4_8o3qg"]
-[ext_resource type="Shader" uid="uid://cws7bqscpuh44" path="res://outline.gdshader" id="5_gvv7e"]
 [ext_resource type="Script" uid="uid://8sfpwbrmdiud" path="res://Scripts/debug_values.gd" id="6_0jk6h"]
 [ext_resource type="Texture2D" uid="uid://wnja7t1k6chh" path="res://Assets/Texture/daytime.hdr" id="6_cbsd1"]
+[ext_resource type="Shader" uid="uid://ch7dv8kabqu17" path="res://edge_detection.gdshader" id="7_gqo5u"]
 [ext_resource type="Script" uid="uid://b2u2rv74s8ka2" path="res://Scene/SubViewportContainer.gd" id="7_l2qyn"]
 [ext_resource type="Script" uid="uid://bpyda0h5yms2c" path="res://Scene/DirectionalLight3D.gd" id="7_v4288"]
 
@@ -23,21 +23,18 @@ tonemap_mode = 3
 tonemap_exposure = 0.8
 glow_enabled = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4vhg7"]
-render_priority = 0
-shader = ExtResource("5_gvv7e")
-shader_parameter/depth_threshold = 0.05
-shader_parameter/reverse_depth_threshold = 0.25
-shader_parameter/normal_threshold = 0.6
-shader_parameter/darken_amount = 0.3
-shader_parameter/lighten_amount = 1.5
-shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
-shader_parameter/light_direction = Vector3(-0.25, -0.866025, 0.433013)
-
 [sub_resource type="QuadMesh" id="QuadMesh_ot4w3"]
-material = SubResource("ShaderMaterial_4vhg7")
 flip_faces = true
 size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cfevo"]
+render_priority = 0
+shader = ExtResource("7_gqo5u")
+shader_parameter/lightIntensity = 1.25
+shader_parameter/lineAlpha = 0.7
+shader_parameter/useLighting = true
+shader_parameter/lineHighlight = 0.2
+shader_parameter/lineShadow = 0.55
 
 [node name="World" type="Node"]
 script = ExtResource("1_eb50y")
@@ -66,20 +63,25 @@ script = ExtResource("6_0jk6h")
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 z_index = -10
 texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 stretch = true
 script = ExtResource("7_l2qyn")
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(2, 2)
+size = Vector2i(1152, 648)
 render_target_update_mode = 4
 
 [node name="PostProcessing" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
 unique_name_in_owner = true
-visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_ot4w3")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_cfevo")
 
 [node name="Player" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_h7khj")]
 unique_name_in_owner = true
